@@ -1,6 +1,8 @@
 import pygame
 import pytmx
 import pyscroll
+from pygame.locals import *
+
 
 from player import Player
 
@@ -39,7 +41,7 @@ class Game:
 
         while running:
             
-            self.handle_input
+            self.handle_input()
             self.group.center(self.player.rect)
             self.group.update()
             self.group.draw(self.screen)
