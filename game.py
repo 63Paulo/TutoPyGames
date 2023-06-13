@@ -2,6 +2,8 @@ import pygame
 import pytmx
 import pyscroll
 
+from player import Player
+
 class Game:
     def __init__(self):
         self.screen = pygame.display.set_mode((800, 600))
@@ -12,7 +14,10 @@ class Game:
         map_layer = pyscroll.orthographic.BufferedRenderer(map_data, self.screen.get_size())
         map_layer.zoom = 2
 
+        self.player = Player()
+
         self.group = pyscroll.PyscrollGroup(map_layer=map_layer, default_layer=1)
+        self.group.add(self.player)
 
     def run(self):
         running = True
