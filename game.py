@@ -19,6 +19,12 @@ class Game:
         player_position = tmx_data.get_object_by_name("player")
         self.player = Player(player_position.x, player_position.y)
 
+        self.walls = []
+
+        for obj in tmx_data.objects:
+            if obj.type == "collision":
+                self.walls.append(pygame.Rect(obj.x, obj.y, obj.width, obj.height))
+
         self.group = pyscroll.PyscrollGroup(map_layer=map_layer, default_layer=3)
         self.group.add(self.player)
 
@@ -28,15 +34,22 @@ class Game:
 
         if pressed[pygame.K_z]:
             self.player.move_up()
+            self.player.change_animation('up')
         elif pressed[pygame.K_s]:
             self.player.move_down()
+            self.player.change_animation('down')
         elif pressed[pygame.K_q]:
             self.player.move_left()
+            self.player.change_animation('left')
         elif pressed[pygame.K_d]:
             self.player.move_right()
+            self.player.change_animation('right')
 
 
     def run(self):
+
+        clock = pygame.time.Clock()
+
         running = True
 
         while running:
@@ -50,5 +63,7 @@ class Game:
             for event  in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
+
+            clock.tick(60)
 
         pygame.quit()
