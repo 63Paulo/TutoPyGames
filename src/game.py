@@ -4,7 +4,7 @@ import pyscroll
 from pygame.locals import *
 
 
-from player import Player
+from src.player import Player
 
 class Game:
     def __init__(self):
@@ -29,7 +29,7 @@ class Game:
         self.group.add(self.player)
     
         enter_house = tmx_data.get_object_by_name('enter_house')
-        self.enter_house_rect = pygame.Rect(enter_house.x, enter_house.y, enter_house.width, enter_house.height)
+        self.enter_house.rect = pygame.Rect(enter_house.x, enter_house.y, enter_house.width, enter_house.height)
 
     def handle_input(self):
 
@@ -66,7 +66,7 @@ class Game:
         self.group.add(self.player)
     
         enter_house = tmx_data.get_object_by_name('exit_house')
-        self.enter_house_rect = pygame.Rect(enter_house.x, enter_house.y, enter_house.width, enter_house.height)
+        self.enter_houserect = pygame.Rect(enter_house.x, enter_house.y, enter_house.width, enter_house.height)
 
 
     def update(self):
