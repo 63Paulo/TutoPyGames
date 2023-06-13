@@ -50,7 +50,7 @@ class Game:
 
     def switch_house(self):
 
-        tmx_data = pytmx.util_pygame.load_pygame('housee.tmx')
+        tmx_data = pytmx.util_pygame.load_pygame('../map/housee.tmx')
         map_data = pyscroll.data.TiledMapData(tmx_data)
         map_layer = pyscroll.orthographic.BufferedRenderer(map_data, self.screen.get_size())
         map_layer.zoom = 2
