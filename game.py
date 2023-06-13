@@ -45,6 +45,13 @@ class Game:
             self.player.move_right()
             self.player.change_animation('right')
 
+    def update(self):
+        self.group.update()
+
+        for sprite in self.group.sprites():
+            if sprite.feet.collidelist(self.walls) > -1:
+                sprite.move_back()
+
 
     def run(self):
 
@@ -54,9 +61,10 @@ class Game:
 
         while running:
             
+            self.player.save_location()
             self.handle_input()
+            self.update()
             self.group.center(self.player.rect)
-            self.group.update()
             self.group.draw(self.screen)
             pygame.display.flip()
 
