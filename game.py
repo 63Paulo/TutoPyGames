@@ -14,16 +14,19 @@ class Game:
         map_layer = pyscroll.orthographic.BufferedRenderer(map_data, self.screen.get_size())
         map_layer.zoom = 2
 
-        self.player = Player()
+        player_position = tmx_data.get_object_by_name("player")
+        self.player = Player(player_position.x, player_position.y)
 
-        self.group = pyscroll.PyscrollGroup(map_layer=map_layer, default_layer=1)
+        self.group = pyscroll.PyscrollGroup(map_layer=map_layer, default_layer=3)
         self.group.add(self.player)
 
     def run(self):
         running = True
 
         while running:
-
+            
+            self.group.center(self.player.rect)
+            self.group.update()
             self.group.draw(self.screen)
             pygame.display.flip()
 
