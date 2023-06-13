@@ -27,6 +27,9 @@ class Game:
 
         self.group = pyscroll.PyscrollGroup(map_layer=map_layer, default_layer=5)
         self.group.add(self.player)
+    
+        enter_house = tmx_data.get_object_by_name('enter_house')
+        self.enter_house_rect = pygame.Rect(enter_house.x, enter_house.y, enter_house.width, enter_house.height)
 
     def handle_input(self):
 
@@ -45,8 +48,32 @@ class Game:
             self.player.move_right()
             self.player.change_animation('right')
 
+    def switch_house(self):
+
+        tmx_data = pytmx.util_pygame.load_pygame('housee.tmx')
+        map_data = pyscroll.data.TiledMapData(tmx_data)
+        map_layer = pyscroll.orthographic.BufferedRenderer(map_data, self.screen.get_size())
+        map_layer.zoom = 2
+
+
+        self.walls = []
+
+        for obj in tmx_data.objects:
+            if obj.type == "collision":
+                self.walls.append(pygame.Rect(obj.x, obj.y, obj.width, obj.height))
+
+        self.group = pyscroll.PyscrollGroup(map_layer=map_layer, default_layer=5)
+        self.group.add(self.player)
+    
+        enter_house = tmx_data.get_object_by_name('exit_house')
+        self.enter_house_rect = pygame.Rect(enter_house.x, enter_house.y, enter_house.width, enter_house.height)
+
+
     def update(self):
         self.group.update()
+
+        if self.player.feet.colliderect(self.enter_house_rect) :
+            self.switch_house()
 
         for sprite in self.group.sprites():
             if sprite.feet.collidelist(self.walls) > -1:
