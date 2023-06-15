@@ -8,11 +8,19 @@ class DialogBox:
     def __init__(self):
         self.box = pygame.image.load('dialogs/dialog_box.png')
         self.box = pygame.transform.scale(self.box, (700, 100))
-        self.texts = ["Salut, ça va ?", "Moi super bien", "Bonne aventure !"]
+        self.texts = []
         self.letter_index = 0
         self.text_index = 0
         self.font = pygame.font.Font("dialogs/dialog_font.ttf", 18)
-        self.reading = True
+        self.reading = False
+
+    def execute(self, dialog=[]):
+        if self.reading:
+            self.next_text()
+        else :
+            self.reading = True
+            self.text_index = 0
+            self.texts = dialog
 
     def render(self, screen):
        if self.reading:
@@ -32,4 +40,6 @@ class DialogBox:
         if self.text_index >= len(self.texts):
             #fermer le dialogue
             self.reading = False
+
+        
 
