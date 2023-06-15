@@ -58,3 +58,12 @@ class NPC(Entity):
     def __init__(self, name, nb_points):
         super().__init__(name, 0, 0)
         self.nb_points = nb_points
+        self.points = []
+        self.name = name
+        self.current_point = 0
+    
+    def load_points(self, map):
+        for num in range(1, self.nb_points + 1):
+            point = map.get_object(f"{self.name}_path{num}")
+            rect = pygame.Rect(point.x, point.y, point.width, point.height)
+            
