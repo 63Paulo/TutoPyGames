@@ -127,3 +127,6 @@ class MapManager:
     def update(self):
         self.get_group().update()
         self.check_collisions()
+
+        for npc in self.get_map().npcs:
+            npc.move()
