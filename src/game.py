@@ -12,7 +12,7 @@ class Game:
         self.screen = pygame.display.set_mode((800, 600))
         pygame.display.set_caption('Pygamon - Aventure')
 
-        self.player = Player(0, 0)
+        self.player = Player()
         self.map_manager = MapManager(self.screen, self.player)
 
 
