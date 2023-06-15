@@ -18,9 +18,6 @@ class Entity(AnimateSprite):
 
     def save_location(self): self.old_position = self.position.copy()
 
-    def change_animation(self, name):
-        self.image = self.images[name]
-        self.image.set_colorkey([0, 0, 0])
 
     def move_right(self): 
         self.change_animation("right")
