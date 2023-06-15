@@ -380,7 +380,7 @@
   <object id="59" type="collision" x="419.333" y="153.333" width="24" height="22"/>
   <object id="68" type="collision" x="90.6667" y="340.667" width="74.6667" height="68.6667"/>
   <object id="71" name="house_enter" x="112" y="379.5" width="29" height="39.75"/>
-  <object id="72" name="enter_house_exit" x="125.75" y="422">
+  <object id="72" name="enter_house_exit" x="126.125" y="440.375">
    <point/>
   </object>
  </objectgroup>

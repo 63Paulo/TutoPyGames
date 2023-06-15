@@ -5,6 +5,11 @@ import pyscroll
 from pygame.locals import *
 
 @dataclass
+class Portal:
+    from_world : str
+    origin_point : str
+    target_world : str
+    teleport_point : str
 
 
 @dataclass
@@ -13,6 +18,7 @@ class Map:
     walls: list[pygame.Rect]
     group: pyscroll.PyscrollGroup
     tmx_data: pytmx.TiledMap
+    portals : list[Portal]
 
 class MapManager:
     def __init__(self, screen, player):
@@ -21,7 +27,9 @@ class MapManager:
         self.player = player
         self.current_map = 'world'
 
-        self.register_map('world')
+        self.register_map('world', portals=[
+            Portal(from_world='world', origin_point='enter_house', target_world='housee', teleport_point='spawn_house')
+        ])
         self.register_map('housee')
 
         self.teleport_player("player")
@@ -38,7 +46,7 @@ class MapManager:
         self.player.save_location()
 
 
-    def register_map(self, name):
+    def register_map(self, name, portals=[]):
          
         tmx_data = pytmx.util_pygame.load_pygame(f"map/{name}.tmx")
         map_data = pyscroll.data.TiledMapData(tmx_data)
@@ -56,7 +64,7 @@ class MapManager:
         group.add(self.player)
 
         #créer objet map
-        self.maps[name] = Map(name, walls, group, tmx_data)
+        self.maps[name] = Map(name, walls, group, tmx_data, portals)
 
     def get_map(self):
         return self.maps[self.current_map]
