@@ -48,6 +48,7 @@ class MapManager:
         ])
 
         self.teleport_player("player")
+        self.teleport_npcs()
 
     def check_collisions(self):
         #portails
@@ -109,7 +110,15 @@ class MapManager:
     
     def get_object(self, name):
         return self.get_map().tmx_data.get_object_by_name(name)
+    
+    def teleport_npcs(self):
+        for map in self.maps:
+            map_data = self.maps[map]
+            npcs = map_data.npcs
 
+            for npc in npcs:
+                npc.load_points(self)
+                npc.teleport_spawn()
     
     def draw(self):
         self.get_group().draw(self.screen)

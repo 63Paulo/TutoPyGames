@@ -61,9 +61,15 @@ class NPC(Entity):
         self.points = []
         self.name = name
         self.current_point = 0
+
+    def teleport_spawn(self):
+        location = self.points[self.current_point]
+        self.position[0] = location.x
+        self.position[1] = location.y
+        self.save_location()
     
     def load_points(self, map):
         for num in range(1, self.nb_points + 1):
             point = map.get_object(f"{self.name}_path{num}")
             rect = pygame.Rect(point.x, point.y, point.width, point.height)
-            
+            self.points.append(rect)
