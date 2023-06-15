@@ -4,6 +4,8 @@ import pytmx
 import pyscroll
 from pygame.locals import *
 
+from player import NPC
+
 @dataclass
 class Portal:
     from_world : str
@@ -19,6 +21,7 @@ class Map:
     group: pyscroll.PyscrollGroup
     tmx_data: pytmx.TiledMap
     portals : list[Portal]
+    npcs : list[NPC]
 
 class MapManager:
     def __init__(self, screen, player):
@@ -31,6 +34,8 @@ class MapManager:
             Portal(from_world='world', origin_point='enter_house', target_world='housee', teleport_point='spawn_house'),
             Portal(from_world='world', origin_point='enter_house2', target_world='house2', teleport_point='spawn_house'),
              Portal(from_world='world', origin_point='enter_dungeon', target_world='dungeon', teleport_point='spawn_dungeon')
+        ], npcs=[
+            NPC("paul", nb_points=4)
         ])
         self.register_map('housee', portals=[
             Portal(from_world='housee', origin_point='exit_house', target_world='world', teleport_point='enter_house_exit')
@@ -68,7 +73,7 @@ class MapManager:
         self.player.save_location()
 
 
-    def register_map(self, name, portals=[]):
+    def register_map(self, name, portals=[], npcs=[]):
          
         tmx_data = pytmx.util_pygame.load_pygame(f"map/{name}.tmx")
         map_data = pyscroll.data.TiledMapData(tmx_data)
@@ -85,8 +90,13 @@ class MapManager:
         group = pyscroll.PyscrollGroup(map_layer=map_layer, default_layer=5)
         group.add(self.player)
 
+        #récupérer les npcs pour les ajouter au groupe
+
+        for npc in npcs:
+            group.add(npc)
+
         #créer objet map
-        self.maps[name] = Map(name, walls, group, tmx_data, portals)
+        self.maps[name] = Map(name, walls, group, tmx_data, portals, npcs)
 
     def get_map(self):
         return self.maps[self.current_map]

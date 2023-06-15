@@ -55,5 +55,6 @@ class Player(Entity):
         super().__init__("player", 0, 0)
 
 class NPC(Entity):
-    def __init__(self, name):
+    def __init__(self, name, nb_points):
         super().__init__(name, 0, 0)
+        self.nb_points = nb_points
