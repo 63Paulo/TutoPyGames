@@ -2,10 +2,10 @@ import pygame
 import pytmx
 import pyscroll
 from pygame.locals import *
-from src.map import MapManager
+from map import MapManager
 
 
-from src.player import Player
+from player import Player
 
 class Game:
     def __init__(self):
@@ -34,7 +34,7 @@ class Game:
             self.player.change_animation('right')
 
     def update(self):
-        self.group.update()
+        self.map_manager.update()
 
 
     def run(self):
@@ -48,8 +48,7 @@ class Game:
             self.player.save_location()
             self.handle_input()
             self.update()
-            self.group.center(self.player.rect)
-            self.group.draw(self.screen)
+            self.map_manager.draw()
             pygame.display.flip()
 
             for event  in pygame.event.get():
