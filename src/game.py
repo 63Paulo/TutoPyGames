@@ -22,16 +22,12 @@ class Game:
 
         if pressed[pygame.K_z]:
             self.player.move_up()
-            self.player.change_animation('up')
         elif pressed[pygame.K_s]:
             self.player.move_down()
-            self.player.change_animation('down')
         elif pressed[pygame.K_q]:
             self.player.move_left()
-            self.player.change_animation('left')
         elif pressed[pygame.K_d]:
             self.player.move_right()
-            self.player.change_animation('right')
 
     def update(self):
         self.map_manager.update()
